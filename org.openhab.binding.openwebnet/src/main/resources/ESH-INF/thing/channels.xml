@@ -39,7 +39,7 @@
 	
 
 	<!-- Shutter Channel -->
-	<channel-type id="shutter">
+	<channel-type id="shutterPosition">
 		<item-type>Rollershutter</item-type>
 		<label>Roller shutter</label>
 		<description>Control the roller shutter position</description>
@@ -48,7 +48,13 @@
 			<tag>Blinds</tag>
 		</tags>
 	</channel-type>
-	
+	<channel-type id="shutterMotion">
+        <item-type>Number</item-type>
+        <label>Motion Roller shutter</label>
+        <description>Motion the roller shutter UP-DOWN-STOP</description>
+        <state readOnly="true" />
+    </channel-type>
+    
 	<!--  Thermo channels -->
 	<channel-type id="temperature">
 		<item-type>Number:Temperature</item-type>
