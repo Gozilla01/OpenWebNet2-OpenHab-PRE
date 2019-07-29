@@ -33,8 +33,14 @@ Devices support some of the following channels:
  
 - New features
   - [FIX [#12](https://github.com/mvalla/openhab2-addons/issues/12) and [#32](https://github.com/mvalla/openhab2-addons/issues/32)] Add bus AUX for managing auxiliary controls (WHO = 9)
+  - [FIX [#63](https://github.com/mvalla/openhab2-addons/issues/63)] Rollershutter items do not track changes in movement from external commands
+    - *[BREAKING CHANGE]* channel `shutter` changed the name to `shutterPosition`
+    - New channel `shutterMotion` (`0`= stop, `1`= up, `2`= down) 
   - [FIX [#69](https://github.com/mvalla/openhab2-addons/issues/69)] Updating of article statuses, lighting and automation, with the received AMB-GR-GEN commands.
-
+  - [Issue [#35](https://github.com/mvalla/openhab2-addons/issues/35)] Support for group addresses (WHERE=#n)
+    - For lighting and automation
+    - New parameter `addrtype` (`1`= Point to Point, `2`= Area, `3`= Group, `4`= General)
+    - See the tables [Lighting group addresses](https://github.com/Gozilla01/openhab2-addons-Pre-New-Build/blob/master/README.md#test-lighting-group-addresses) and [Automation group addresses](https://github.com/Gozilla01/openhab2-addons-Pre-New-Build/blob/master/README.md#test-automation-group-addresses)
 
 
 
@@ -104,11 +110,7 @@ Devices support some of the following channels:
 
 **v2.5.0.M4.pre2** - 16/06/2019
 
-- [Issue [#35](https://github.com/mvalla/openhab2-addons/issues/35)] Support for group addresses (WHERE=#n)
-   - For lighting and automation
-   - New parameter `addrtype` (`1`= Point to Point, `2`= Area, `3`= Group, `4`= General)
-   - **TO DO** file update README.MD
-   - See the tables [Lighting group addresses](https://github.com/Gozilla01/openhab2-addons-Pre-New-Build/blob/master/README.md#test-lighting-group-addresses) and [Automation group addresses](https://github.com/Gozilla01/openhab2-addons-Pre-New-Build/blob/master/README.md#test-automation-group-addresses)
+
 - [Issue [#79](https://github.com/mvalla/openhab2-addons/issues/79)] Add what parameter to lighting
    - New parameter `what` (default `what`= 0)  
    - **Not working, waiting to resolve the library implementation**
@@ -119,11 +121,6 @@ Devices support some of the following channels:
 - From [v2.5.0.M3](https://github.com/mvalla/openhab2-addons/blob/openwebnet/bundles/org.openhab.binding.openwebnet/README_beta.md#changelog)
 
 
-   - **TO DO** file update README.MD
-- [FIX [#63](https://github.com/mvalla/openhab2-addons/issues/63)] Rollershutter items do not track changes in movement from external commands
-   - *[BREAKING CHANGE]* canale `shutter` changed the name to `shutterPosition`
-   - New channel `shutterMotion` (`0`= stop, `1`= up, `2`= down) 
-   - **TO DO** file update README.MD
 
 
 
