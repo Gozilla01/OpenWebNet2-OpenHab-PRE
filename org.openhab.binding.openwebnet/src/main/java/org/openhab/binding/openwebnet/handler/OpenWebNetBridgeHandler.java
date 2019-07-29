@@ -381,7 +381,38 @@ public class OpenWebNetBridgeHandler extends ConfigStatusBridgeHandler implement
         }
 
         BaseOpenMessage baseMsg = (BaseOpenMessage) msg;
+        // ATTENTION to this logic IF with future implementation of a bus group commands
+        if (deviceDiscoveryService.isGeneral(baseMsg.getWhere()) && baseMsg instanceof Auxiliary) {
+            // This is to avoid creating the thing via discoveryByActivation
+            // command Auxiliary general
+            logger.debug("==OWN==  Message Auxiliary General");
+            return;
+        }
+        if (deviceDiscoveryService.isGeneral(baseMsg.getWhere()) || deviceDiscoveryService.isArea(baseMsg.getWhere())) {
+            if (baseMsg instanceof Automation) {
+                if (isLocalBus(baseMsg)) {
+                    // command Automation Local bus general or ambient
+                    logger.debug("==OWN==  Message Local bus Automation General or Area");
+                    callAllThingHandlerMessage(msg, Who.AUTOMATION.value().toString());
+                } else {
+                    // This is to avoid creating the thing via discoveryByActivation
+                    // command Automation general or ambient
+                    logger.debug("==OWN==  Message Automation General or Area");
+                }
+            }
+            if (baseMsg instanceof Lighting) {
+                // command Lighting general or ambient
+                logger.debug("==OWN==  Message Lighting General or Area");
+                callAllThingHandlerMessage(msg, Who.LIGHTING.value().toString());
+            }
+        }
+        getThingAssociated(msg);
+    }
+
+    /** Get the Thing associated with this message... */
+    private void getThingAssociated(OpenMessage msg) {
         // let's try to get the Thing associated with this message...
+        BaseOpenMessage baseMsg = (BaseOpenMessage) msg;
         if (baseMsg instanceof Lighting || baseMsg instanceof Automation || baseMsg instanceof Thermoregulation
                 || baseMsg instanceof EnergyManagement || baseMsg instanceof CENScenario
                 || baseMsg instanceof CENPlusScenario || baseMsg instanceof Auxiliary) {
@@ -404,6 +435,26 @@ public class OpenWebNetBridgeHandler extends ConfigStatusBridgeHandler implement
                     baseMsg.getWho());
         }
 
+    }
+
+    private void callAllThingHandlerMessage(OpenMessage msg, String who) {
+        BaseOpenMessage baseMsg = (BaseOpenMessage) msg;
+        for (String ownIdkey : registeredDevices.keySet()) {
+            OpenWebNetThingHandler deviceHandler = registeredDevices.get(ownIdkey);
+            if (deviceHandler != null && deviceHandler.ownIdPrefix().equals(who)) {
+                if (deviceDiscoveryService.isGeneral(baseMsg.getWhere())) {
+                    // General
+                    if (isCompareLocalBus(baseMsg, ownIdkey)) {
+                        deviceHandler.handleMessage(baseMsg);
+                    }
+                } else {
+                    // Area
+                    if (isCompareALocalBus(baseMsg, ownIdkey)) {
+                        deviceHandler.handleMessage(baseMsg);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -579,6 +630,100 @@ public class OpenWebNetBridgeHandler extends ConfigStatusBridgeHandler implement
         } else {
             return OpenMessageFactory.getAddrFromWhere(where);
         }
+    }
+
+    /**
+     * Check baseMsg is local bus
+     *
+     * @param BaseOpenMessage baseMsg
+     * @return boolean
+     */
+    private boolean isLocalBus(BaseOpenMessage baseMsg) {
+        String where = baseMsg.getWhere();
+        if (where.indexOf("#4#") >= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Compare where and local bus between baseMsg and ownId
+     *
+     * @param BaseOpenMessage baseMsg
+     * @param String ownId
+     * @return boolean
+     */
+    private boolean isCompareALocalBus(BaseOpenMessage baseMsg, String ownId) {
+        String ownIdwhere = ownId.substring(ownId.indexOf('.') + 1, ownId.length());
+        String AownId = getA(ownIdwhere) + getLocalBus(ownIdwhere);
+        String Amsg = getA(baseMsg.getWhere()) + getLocalBus(baseMsg.getWhere());
+        if (AownId.equals(Amsg)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Compare local bus between baseMsg and ownId
+     *
+     * @param BaseOpenMessage baseMsg
+     * @param String ownId
+     * @return boolean
+     */
+    private boolean isCompareLocalBus(BaseOpenMessage baseMsg, String ownId) {
+        String ownIdwhere = ownId.substring(ownId.indexOf('.') + 1, ownId.length());
+        String LownId = getLocalBus(ownIdwhere);
+        String Lmsg = getLocalBus(baseMsg.getWhere());
+        if (LownId.equals(Lmsg)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get A from where
+     *
+     * @param String where
+     * @return String A
+     */
+    // TODO push down in the OWN lib
+    private String getA(String where) {
+        String whereA = where;
+        if (where.indexOf('#') > 0) {
+            whereA = where.substring(0, where.indexOf('#'));
+        }
+        switch (whereA.length()) {
+            case 1:
+                return whereA;
+            case 2:
+                return whereA.substring(0, 1);
+            case 3:
+                return whereA.substring(0, 2);
+            case 4:
+                return whereA.substring(0, 2);
+            default:
+                logger.debug("==OWN==  BridgeHandler - getA error extract where:{}", where);
+                return "";
+        }
+    }
+
+    /**
+     * Get Local bus from where
+     *
+     * @param String where
+     * @return String Local bus
+     */
+    // TODO push down in the OWN lib
+    private String getLocalBus(String where) {
+        String local = "";
+        if (where.indexOf("#4#") != -1) {
+            if (where.indexOf("#4#4#") == 0) {
+                local = where.substring(2, where.length());
+            } else {
+                local = where.substring(where.indexOf("#4#"), where.length());
+            }
+        }
+        return local;
     }
 
 }
