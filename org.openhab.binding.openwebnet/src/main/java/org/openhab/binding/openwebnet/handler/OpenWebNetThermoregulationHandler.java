@@ -37,6 +37,7 @@ import org.openwebnet.message.BaseOpenMessage;
 import org.openwebnet.message.OpenMessage;
 import org.openwebnet.message.Thermoregulation;
 import org.openwebnet.message.Thermoregulation.LOCAL_OFFSET;
+import org.openwebnet.message.Thermoregulation.WHAT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,6 +96,7 @@ public class OpenWebNetThermoregulationHandler extends OpenWebNetThingHandler {
     private Mode currentActiveMode = Mode.UNKNOWN;
     private ThermoFunction thermoFunction = ThermoFunction.UNKNOWN;
     private Thermoregulation.LOCAL_OFFSET localOffset = Thermoregulation.LOCAL_OFFSET.NORMAL;
+    private BigDecimal SetpointTemperature = new BigDecimal(0); // present value
 
     public OpenWebNetThermoregulationHandler(@NonNull Thing thing) {
         super(thing);
@@ -149,20 +151,24 @@ public class OpenWebNetThermoregulationHandler extends OpenWebNetThingHandler {
             } else {
                 value = ((DecimalType) command).toBigDecimal();
             }
-            // TODO check setPoint is inside OWN range (5-40) and check it's int or x.5 decimal, if not, round to
-            // nearest x.0/x.5. Or better make it a control at lib level
-            OpenSession ses = bridgeHandler.gateway
-                    .send(Thermoregulation.requestWriteSetpoint(deviceWhere, value.floatValue()));
-            if (ses.getFinalResponse().getValue().equals(OpenMessage.NACK)) {
-                logger.debug("=OWN:ThermoHandler== Failed sending Setpoint command with WHERE=N");
-                // using WHERE=N fails, let'use zone by central unit WHERE=#N
-                bridgeHandler.gateway
-                        .send(Thermoregulation.requestWriteSetpoint("#" + deviceWhere, value.floatValue()));
-            }
+            setSetpointTemperature(value);
         } else {
             logger.warn("==OWN:ThermoHandler== Cannot handle command {} for thing {}", command, getThing().getUID());
             return;
         }
+    }
+
+    private void setSetpointTemperature(BigDecimal value) {
+        // TODO check setPoint is inside OWN range (5-40) and check it's int or x.5 decimal, if not, round to
+        // nearest x.0/x.5. Or better make it a control at lib level
+        OpenSession ses = bridgeHandler.gateway
+                .send(Thermoregulation.requestWriteSetpoint(deviceWhere, value.floatValue()));
+        if (ses.getFinalResponse().getValue().equals(OpenMessage.NACK)) {
+            logger.debug("=OWN:ThermoHandler== Failed sending Setpoint command with WHERE=N");
+            // using WHERE=N fails, let'use zone by central unit WHERE=#N
+            bridgeHandler.gateway.send(Thermoregulation.requestWriteSetpoint("#" + deviceWhere, value.floatValue()));
+        }
+        SetpointTemperature = value;
     }
 
     private void handleModeCommand(Command command) {
@@ -179,7 +185,11 @@ public class OpenWebNetThermoregulationHandler extends OpenWebNetThingHandler {
             }
             logger.debug("==OWN:ThermoHandler== handleModeCommand() modeWhat={}", modeWhat);
             if (modeWhat != null) {
-                bridgeHandler.gateway.send(Thermoregulation.requestSetMode("#" + deviceWhere, modeWhat));
+                if (WHAT.MANUAL_HEATING.equals(modeWhat)) {
+                    setSetpointTemperature(SetpointTemperature);
+                } else {
+                    bridgeHandler.gateway.send(Thermoregulation.requestSetMode("#" + deviceWhere, modeWhat));
+                }
             } else {
                 logger.warn("==OWN:ThermoHandler== Cannot handle command {} for thing {}", command,
                         getThing().getUID());
@@ -349,9 +359,11 @@ public class OpenWebNetThermoregulationHandler extends OpenWebNetThingHandler {
         try {
             temp = Thermoregulation.parseTemperature(tmsg);
             updateState(channelID, new DecimalType(temp));
+            SetpointTemperature = new BigDecimal(temp);
         } catch (NumberFormatException e) {
             logger.warn("==OWN:ThermoHandler== updateSetpoint() got Exception on frame {}: {}", tmsg, e.getMessage());
             updateState(channelID, UnDefType.NULL);
+            SetpointTemperature = new BigDecimal(0);
         }
     }
 
