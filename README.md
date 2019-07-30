@@ -30,7 +30,12 @@ Devices support some of the following channels:
 - Bug fix
   - [FIX [#80](https://github.com/mvalla/openhab2-addons/issues/80)] thermo: setmode in MANUAL not work
   - FIX bug `normalizeWhere` for group command
- 
+  - FIX bug Lib 
+  - Temporary modification to the `message.Lighting`, correction for group command management for different `Lighting.Type`
+  - Temporary modification to the `message.Automation`, correction for group command management for different `Automation.Type`
+
+
+  
 - New features
   - [FIX [#12](https://github.com/mvalla/openhab2-addons/issues/12) and [#32](https://github.com/mvalla/openhab2-addons/issues/32)] Add bus AUX for managing auxiliary controls (WHO = 9)
   - [FIX [#63](https://github.com/mvalla/openhab2-addons/issues/63)] Rollershutter items do not track changes in movement from external commands
@@ -41,6 +46,9 @@ Devices support some of the following channels:
     - For lighting and automation
     - New parameter `addrtype` (`1`= Point to Point, `2`= Area, `3`= Group, `4`= General)
     - See the tables [Lighting group addresses](https://github.com/Gozilla01/openhab2-addons-Pre-New-Build/blob/master/README.md#test-lighting-group-addresses) and [Automation group addresses](https://github.com/Gozilla01/openhab2-addons-Pre-New-Build/blob/master/README.md#test-automation-group-addresses)
+  - Temporary modification to the `message.Lighting`
+    - Added management for new timed WHAT
+    - Added management for `bus_motion_detector`
 
 
 
@@ -54,12 +62,10 @@ Devices support some of the following channels:
 **v2.5.0.M3.pre10**  24/07/2019
 
 - Update for bus `bus_motion_detector`
-- Temporary modification to the `message.Lighting`
-  - Added management for new timed WHAT
-  - Correction for group command management for different `Lighting.Type`
+
+
   - Added management for `bus_motion_detector`
-- Temporary modification to the `message.Automation`
-  - Correction for group command management for different `Automation.Type`
+
 - Add news parameters `hour` , `minute` and `second` for `bus_on_off_switch` and `zb_on_off_switch` 
 
 **v2.5.0.M3.pre9** 19/07/2019
@@ -81,16 +87,8 @@ Devices support some of the following channels:
   - Parameter `where`
   - Channel `switch` state `ON` to the movement and after 2 seconds automatically `OFF`
   - Channel `value` numeric with detected value lux
-- Update BusAuxToggle.xml
-
-**v2.5.0.M3.pre7** - 29/06/2019
 
 
-- Fix bug `isArea` for group command with different local bus
-- Fix bug `isGroup` for group command with different local bus
-- Fix bug `isGeneral` for group command with different local bus
-- Fix bug `isCompareALocalBus` for group command with different local bus
-- Fix bug `isCompareLocalBus` for group command with different local bus
 
 **v2.5.0.M3.pre6** - 23/06/2019
 
