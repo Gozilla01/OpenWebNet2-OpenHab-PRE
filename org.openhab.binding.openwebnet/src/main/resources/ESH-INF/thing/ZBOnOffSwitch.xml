@@ -31,6 +31,18 @@
 				<description>It identifies one ZigBee device. Use decimal format address without the UNIT part and network: ZigBee WHERE=414122201#9 -> OpenWebNet Device Address = 4141222</description>
 				<required>true</required>
 			</parameter>
+			<parameter name="addrtype" type="integer">
+                <label>OpenWebNet Address type command</label>
+                <description>Example: 1=Point to Point, 2=Area, 3=Group, 4=General</description>
+                <options>
+                    <option value="1">1 Point to Point</option>
+                    <option value="2">2 Area</option>
+                    <option value="3">3 Group</option>
+                    <option value="4">4 General</option>
+                </options>
+                <default>1</default>
+                <required>true</required>
+            </parameter>
 		</config-description>
 		
 	</thing-type>

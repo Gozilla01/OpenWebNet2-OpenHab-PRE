@@ -178,6 +178,7 @@ public class OpenWebNetBindingConstants {
     public static final String CONFIG_PROPERTY_WHERE = "where";
     public static final String CONFIG_PROPERTY_SHUTTER_RUN = "shutterRun";
     public static final String CONFIG_PROPERTY_SCENARIO_BUTTONS = "buttons";
+    public static final String CONFIG_PROPERTY_ADDRTYPE = "addrtype";
     // BUS gw config properties
     public static final String CONFIG_PROPERTY_SERIAL_PORT = "serialPort";
     public static final String CONFIG_PROPERTY_HOST = "host";
@@ -190,5 +191,10 @@ public class OpenWebNetBindingConstants {
     public static final String PROPERTY_FIRMWARE_VERSION = "firmwareVersion";
     public static final String PROPERTY_MODEL = "model";
     public static final String PROPERTY_SERIAL_NO = "serialNumber";
+    // group command type addrtype
+    public static final int PARAMETER_TYPE_POINT_TO_POINT = 1;
+    public static final int PARAMETER_TYPE_AREA = 2;
+    public static final int PARAMETER_TYPE_GROUP = 3;
+    public static final int PARAMETER_TYPE_GENERAL = 4;
 
 }
