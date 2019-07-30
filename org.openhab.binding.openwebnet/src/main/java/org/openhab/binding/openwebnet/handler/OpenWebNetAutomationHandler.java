@@ -36,6 +36,7 @@ import org.eclipse.smarthome.core.types.Command;
 import org.eclipse.smarthome.core.types.UnDefType;
 import org.openhab.binding.openwebnet.OpenWebNetBindingConstants;
 import org.openwebnet.message.Automation;
+import org.openwebnet.message.AutomationExt;
 import org.openwebnet.message.BaseOpenMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -167,7 +168,7 @@ public class OpenWebNetAutomationHandler extends OpenWebNetThingHandler {
             updateStatus(ThingStatus.ONLINE);
             updateState(channel, UnDefType.UNDEF);
         } else {
-            bridgeHandler.gateway.send(Automation.requestStatus(deviceWhere, automationType));
+            bridgeHandler.gateway.send(AutomationExt.requestStatus(deviceWhere, automationType));
             // TODO request shutter position, if natively supported by device
         }
     }
@@ -197,20 +198,20 @@ public class OpenWebNetAutomationHandler extends OpenWebNetThingHandler {
         calibrating = CALIBRATION_INACTIVE; // cancel calibration if we receive a command
         commandRequestedWhileMoving = null;
         if (StopMoveType.STOP.equals(command)) { // STOP
-            bridgeHandler.gateway.send(Automation.requestStop(deviceWhere, automationType));
+            bridgeHandler.gateway.send(AutomationExt.requestStop(deviceWhere, automationType));
         } else if (command instanceof UpDownType || command instanceof PercentType) {
             if (internalState == STATE_MOVING_UP || internalState == STATE_MOVING_DOWN) { // already moving
                 logger.debug(
                         "==OWN:AutomationHandler==  # " + deviceWhere + " # already moving, STOP then defer command");
                 commandRequestedWhileMoving = command;
-                bridgeHandler.gateway.sendHighPriority(Automation.requestStop(deviceWhere, automationType));
+                bridgeHandler.gateway.sendHighPriority(AutomationExt.requestStop(deviceWhere, automationType));
                 return;
             } else {
                 if (command instanceof UpDownType) {
                     if (UpDownType.UP.equals(command)) { // UP
-                        bridgeHandler.gateway.send(Automation.requestMoveUp(deviceWhere, automationType));
+                        bridgeHandler.gateway.send(AutomationExt.requestMoveUp(deviceWhere, automationType));
                     } else { // DOWN
-                        bridgeHandler.gateway.send(Automation.requestMoveDown(deviceWhere, automationType));
+                        bridgeHandler.gateway.send(AutomationExt.requestMoveDown(deviceWhere, automationType));
                     }
                 } else if (command instanceof PercentType) { // PERCENT
                     handlePercentCommand((PercentType) command);
@@ -235,16 +236,16 @@ public class OpenWebNetAutomationHandler extends OpenWebNetThingHandler {
             return;
         }
         if (percent == POSITION_DOWN) { // GO TO 100%
-            bridgeHandler.gateway.send(Automation.requestMoveDown(deviceWhere, automationType));
+            bridgeHandler.gateway.send(AutomationExt.requestMoveDown(deviceWhere, automationType));
         } else if (percent == POSITION_UP) { // GO TO 0%
-            bridgeHandler.gateway.send(Automation.requestMoveUp(deviceWhere, automationType));
+            bridgeHandler.gateway.send(AutomationExt.requestMoveUp(deviceWhere, automationType));
         } else { // GO TO XX%
             logger.debug("==OWN:AutomationHandler== # " + deviceWhere + " # {}% requested", percent);
             if (shutterRun == SHUTTER_RUN_UNDEFINED) {
                 logger.debug("==OWN:AutomationHandler== & " + deviceWhere
                         + " & shutterRun not configured, starting CALIBRATION...");
                 calibrating = CALIBRATION_ACTIVATED;
-                bridgeHandler.gateway.send(Automation.requestMoveUp(deviceWhere, automationType));
+                bridgeHandler.gateway.send(AutomationExt.requestMoveUp(deviceWhere, automationType));
                 positionRequested = percent;
             } else if (shutterRun > 0 && positionEst != POSITION_UNKNOWN) { // these two must be known to
                                                                             // calculate
@@ -267,14 +268,16 @@ public class OpenWebNetAutomationHandler extends OpenWebNetThingHandler {
                     moveSchedule = scheduler.schedule(() -> {
                         logger.debug("==OWN:AutomationHandler== # " + deviceWhere
                                 + " # moveSchedule expired, sending STOP...");
-                        bridgeHandler.gateway.sendHighPriority(Automation.requestStop(deviceWhere, automationType));
+                        bridgeHandler.gateway.sendHighPriority(AutomationExt.requestStop(deviceWhere, automationType));
                     }, moveTime, TimeUnit.MILLISECONDS);
                     logger.debug("==OWN:AutomationHandler== # " + deviceWhere
                             + " # ...schedule started, now sending highPriority command...");
                     if (percent < positionEst) {
-                        bridgeHandler.gateway.sendHighPriority(Automation.requestMoveUp(deviceWhere, automationType));
+                        bridgeHandler.gateway
+                                .sendHighPriority(AutomationExt.requestMoveUp(deviceWhere, automationType));
                     } else {
-                        bridgeHandler.gateway.sendHighPriority(Automation.requestMoveDown(deviceWhere, automationType));
+                        bridgeHandler.gateway
+                                .sendHighPriority(AutomationExt.requestMoveDown(deviceWhere, automationType));
                     }
                     logger.debug(
                             "==OWN:AutomationHandler== # " + deviceWhere + " # ...gateway.sendHighPriority() returned");
@@ -350,7 +353,7 @@ public class OpenWebNetAutomationHandler extends OpenWebNetThingHandler {
                 logger.debug("==OWN:AutomationHandler==  & " + deviceWhere
                         + " & ..CALIBRATING: reached UP, now sending DOWN command...", shutterRun);
                 calibrating = CALIBRATION_ACTIVATED;
-                bridgeHandler.gateway.send(Automation.requestMoveDown(deviceWhere, automationType));
+                bridgeHandler.gateway.send(AutomationExt.requestMoveDown(deviceWhere, automationType));
             } else {
                 updateStateInt(STATE_STOPPED);
                 // do deferred command, if present
