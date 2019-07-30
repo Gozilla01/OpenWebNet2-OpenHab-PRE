@@ -233,6 +233,23 @@ public class OpenWebNetDeviceDiscoveryService extends AbstractDiscoveryService i
             properties.put(OpenWebNetBindingConstants.CONFIG_PROPERTY_SCENARIO_BUTTONS,
                     ((CEN) baseMsg).getButtonNumber().toString());
         }
+        // Parameter addrtype
+        if ((deviceType == OpenDeviceType.SCS_SHUTTER_CONTROL || deviceType == OpenDeviceType.SCS_ON_OFF_SWITCH)
+                && baseMsg != null) {
+            if (isArea(where)) {
+                properties.put(OpenWebNetBindingConstants.CONFIG_PROPERTY_ADDRTYPE,
+                        OpenWebNetBindingConstants.PARAMETER_TYPE_AREA);
+            } else if (isGroup(where)) {
+                properties.put(OpenWebNetBindingConstants.CONFIG_PROPERTY_ADDRTYPE,
+                        OpenWebNetBindingConstants.PARAMETER_TYPE_GROUP);
+            } else if (isGeneral(where)) {
+                properties.put(OpenWebNetBindingConstants.CONFIG_PROPERTY_ADDRTYPE,
+                        OpenWebNetBindingConstants.PARAMETER_TYPE_GENERAL);
+            } else {
+                properties.put(OpenWebNetBindingConstants.CONFIG_PROPERTY_ADDRTYPE,
+                        OpenWebNetBindingConstants.PARAMETER_TYPE_POINT_TO_POINT);
+            }
+        }
         if (thingTypeUID == OpenWebNetBindingConstants.THING_TYPE_DEVICE && baseMsg != null) { // generic thing, let's
                                                                                                // specify the WHO
             thingLabel = thingLabel + " (WHO=" + baseMsg.getWho() + ", WHERE=" + whereLabel + ")";
