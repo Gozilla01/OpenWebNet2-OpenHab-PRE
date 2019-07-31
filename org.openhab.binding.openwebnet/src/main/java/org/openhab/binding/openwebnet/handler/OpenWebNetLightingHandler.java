@@ -62,6 +62,10 @@ public class OpenWebNetLightingHandler extends OpenWebNetThingHandler {
     private int latestBrightnessWhatBeforeOff = -1; // latest brightness WHAT value before device was set to off
     private int addrtype = PARAMETER_TYPE_POINT_TO_POINT; // address type
     private final static int SCHEDULE_DELAY = 500; // ms
+    private int what = 0; // address what
+    private int hour = 0; // timer hour
+    private int minute = 0; // timer minute
+    private int second = 0; // timer second
 
     public OpenWebNetLightingHandler(@NonNull Thing thing) {
         super(thing);
@@ -94,6 +98,18 @@ public class OpenWebNetLightingHandler extends OpenWebNetThingHandler {
                     logger.debug("==OWN:LightingHandler== initialize() Unsupported addrtype={} for thing {}", addrtype,
                             getThing().getUID());
             }
+        }
+        if (getConfig().get(CONFIG_PROPERTY_WHAT) != null) {
+            what = ((BigDecimal) getConfig().get(CONFIG_PROPERTY_WHAT)).intValue();
+        }
+        if (getConfig().get(CONFIG_PROPERTY_HOUR) != null) {
+            hour = ((BigDecimal) getConfig().get(CONFIG_PROPERTY_HOUR)).intValue();
+        }
+        if (getConfig().get(CONFIG_PROPERTY_MINUTE) != null) {
+            minute = ((BigDecimal) getConfig().get(CONFIG_PROPERTY_MINUTE)).intValue();
+        }
+        if (getConfig().get(CONFIG_PROPERTY_SECOND) != null) {
+            second = ((BigDecimal) getConfig().get(CONFIG_PROPERTY_SECOND)).intValue();
         }
     }
 
@@ -141,7 +157,16 @@ public class OpenWebNetLightingHandler extends OpenWebNetThingHandler {
         logger.debug("==OWN:LightingHandler== handleSwitchCommand() (command={} - channel={})", command, channel);
         if (command instanceof OnOffType) {
             if (OnOffType.ON.equals(command)) {
-                bridgeHandler.gateway.send(LightingExt.requestTurnOn(toWhere(channel), lightingType));
+                if (what == 0) {
+                    bridgeHandler.gateway.send(LightingExt.requestTurnOn(toWhere(channel), lightingType));
+                } else {
+                    if (what == 99) {
+                        bridgeHandler.gateway.send(LightingExt.requestTurnOnWhatCustom(toWhere(channel), hour, minute,
+                                second, lightingType));
+                    } else {
+                        bridgeHandler.gateway.send(LightingExt.requestTurnOnWhat(toWhere(channel), what, lightingType));
+                    }
+                }
             } else if (OnOffType.OFF.equals(command)) {
                 bridgeHandler.gateway.send(LightingExt.requestTurnOff(toWhere(channel), lightingType));
             }
