@@ -1,5 +1,5 @@
-# openhab2-addons-Pre-New-Build
-
+# OpenWebNet2-OpenHab-PRE
+This repository starts from the OpenWebNet-OpenHab v2.5.0.M2-2
 
 ### Index
 - [Bus and Channels](#bus-and-channels)
