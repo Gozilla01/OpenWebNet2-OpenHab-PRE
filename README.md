@@ -23,7 +23,7 @@ Devices support some of the following channels:
 |`bus_motion_detector`   |WHO=1 motion decector</br>(movement and lux value detected) |`where`</br>String</br>Value where OWN</br>`automaticToOff`</br>Boolean</br>Automatic `OFF` after 2 seconds (default=false)| `switch`</br>Switch (R/W)</br>To switch the device ON/OFF</br>`value`</br>Integer (R)</br>Detected lux value |
 |`bus_command`   |command management |`who`</br>String</br>Value who OWN</br>`what`</br>String</br>Value what OWN for ON</br>`whatOff`</br>String</br>Value what OWN for OFF</br>`compare`</br>String</br>Code OWN for comparison|  `switch`</br>Switch (R/W)</br>To switch the device ON/OFF</br>`contact`</br>Switch (R/W)</br>To switch the device OPEN/CLOSE</br>`what`</br>String (W)</br>Set the value what OWN               |  
 
-### Changelog
+## Changelog
 
 **v2.5.0.M3.pre12** 31/07/2019
 
@@ -58,7 +58,7 @@ Devices support some of the following channels:
   - [FIX [#52](https://github.com/mvalla/openhab2-addons/issues/52) and [#22](https://github.com/mvalla/openhab2-addons/issues/22)] Add bus `bus_command`
   - Translation Italian
 
-### Example Group Command
+## Example Group Command
 
 **openwebnet.things:**
 
@@ -104,7 +104,7 @@ sitemap openwebnet label="OpenWebNet Binding Example Sitemap"
 
 ```
 
-### Example Bus Command
+## Example Bus Command
 
 **openwebnet.things:**
 
@@ -165,7 +165,7 @@ end
 
 ```
 
-### Example Bus Motion Detector
+## Example Bus Motion Detector
 
 **openwebnet.things:**
 
@@ -184,7 +184,7 @@ Number       iMymotion      {channel="openwebnet:bus_command:mybridge:Mymotion:v
 
 ```
 
-### Example Bus Lighting with parameter what
+## Example Bus Lighting with parameter what
 
 **openwebnet.things:**
 
@@ -226,7 +226,7 @@ Switch       iMylight1     {channel="openwebnet:bus_command:mybridge:Mylight1:sw
 |29      | Blinking on 5 Sec |
 |99      | Custom |
 
-### Test Lighting group addresses
+## Test Lighting group addresses
 last test upgrade pre7
 
 | Group Command | Discovery Bus Principale | Bus Principal      | Discovery Bus Local | Bus Local      | Note                    | 
