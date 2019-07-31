@@ -45,7 +45,7 @@ Devices support some of the following channels:
   - [Issue [#35](https://github.com/mvalla/openhab2-addons/issues/35)] Support for group addresses (WHERE=#n)
     - For lighting and automation
     - New parameter `addrtype` (`1`= Point to Point, `2`= Area, `3`= Group, `4`= General)
-    - See the tables [Lighting group addresses](https://github.com/Gozilla01/openhab2-addons-Pre-New-Build/blob/master/README.md#test-lighting-group-addresses) and [Automation group addresses](https://github.com/Gozilla01/openhab2-addons-Pre-New-Build/blob/master/README.md#test-automation-group-addresses)
+    - See the tables [Lighting group addresses](#test-lighting-group-addresses) and [Automation group addresses](#test-automation-group-addresses)
   - Temporary modification to the `message.Lighting`
     - Added management for new timed WHAT
     - Added management for `bus_motion_detector`
@@ -57,7 +57,7 @@ Devices support some of the following channels:
     - Parameter `where` and `automaticToOff`
     - Channel `switch` state `ON` to the movement and after 2 seconds automatically `OFF`
     - Channel `value` numeric with detected value lux
-  - [FIX [#52](https://github.com/mvalla/openhab2-addons/issues/52) and [#22](https://github.com/mvalla/openhab2-addons/issues/22)] Add bus Command
+  - [FIX [#52](https://github.com/mvalla/openhab2-addons/issues/52) and [#22](https://github.com/mvalla/openhab2-addons/issues/22)] Add bus `bus_command`
   - Translation Italian
 
 ### Example Group Command
