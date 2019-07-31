@@ -25,7 +25,7 @@ Devices support some of the following channels:
 
 ### Changelog
 
-**v2.5.0.M3.pre12** IN PROGRESS 31/07/2019
+**v2.5.0.M3.pre12** 31/07/2019
 
 - Bug fix
   - [FIX [#80](https://github.com/mvalla/openhab2-addons/issues/80)] thermo: setmode in MANUAL not work
