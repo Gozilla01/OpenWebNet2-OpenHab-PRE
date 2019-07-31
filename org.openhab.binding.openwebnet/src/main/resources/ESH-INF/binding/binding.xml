@@ -3,7 +3,7 @@
 	xmlns:binding="https://openhab.org/schemas/binding/v1.0.0"
 	xsi:schemaLocation="https://openhab.org/schemas/binding/v1.0.0 https://openhab.org/schemas/binding-1.0.0.xsd">
 
-	<name>OpenWebNet Binding</name>
+	<name>OpenWebNet Binding (2.5.0.M3.pre12)</name>
 	<description>The OpenWebNet Binding integrates the BTicino/Legrand 'MyHOME' connected home system using the OpenWebNet protocol. It supports BUS (SCS) and ZigBee USB gateways to control BTicino/Legrand switches, dimmers, shutters, thermostasts, CEN/CEN+ scenarios, etc.</description>
 	<author>Massimo Valla</author>
 
