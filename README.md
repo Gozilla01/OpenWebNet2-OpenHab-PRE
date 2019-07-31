@@ -1,7 +1,7 @@
 # OpenWebNet2-OpenHab-PRE
 This repository starts from the OpenWebNet-OpenHab v2.5.0.M2-2
 
-### Index
+## Index
 - [Bus and Channels](#bus-and-channels)
 - [Changelog](#changelog)
 - [Example Group Command](#example-group-command)
@@ -11,7 +11,7 @@ This repository starts from the OpenWebNet-OpenHab v2.5.0.M2-2
 - [Test Lighting group addresses](#test-lighting-group-addresses)
 - [Test Automation group addresses](#test-automation-group-addresses)
 
-### Bus and Channels
+## Bus and Channels
 
 Devices support some of the following channels:
 
