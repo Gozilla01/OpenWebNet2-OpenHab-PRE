@@ -49,6 +49,9 @@ Devices support some of the following channels:
   - Temporary modification to the `message.Lighting`
     - Added management for new timed WHAT
     - Added management for `bus_motion_detector`
+  - [Issue [#79](https://github.com/mvalla/openhab2-addons/issues/79)] Add what parameter to lighting for `bus_on_off_switch` and `zb_on_off_switch`
+    - Added parameters `what` (default `what`= 0), `hour`, `minute` and `second`
+
 
 
 
@@ -56,7 +59,7 @@ Devices support some of the following channels:
 
 **v2.5.0.M3.pre11** IN PROGRESS dd/07/2019
 
-- Update WHAT in `message.Lighting`
+
 - Translation Italian
 
 **v2.5.0.M3.pre10**  24/07/2019
@@ -66,7 +69,7 @@ Devices support some of the following channels:
 
   - Added management for `bus_motion_detector`
 
-- Add news parameters `hour` , `minute` and `second` for `bus_on_off_switch` and `zb_on_off_switch` 
+ 
 
 **v2.5.0.M3.pre9** 19/07/2019
 
@@ -106,13 +109,10 @@ Devices support some of the following channels:
   - **TO DO** file update README.MD
 
 
-**v2.5.0.M4.pre2** - 16/06/2019
 
 
-- [Issue [#79](https://github.com/mvalla/openhab2-addons/issues/79)] Add what parameter to lighting
-   - New parameter `what` (default `what`= 0)  
-   - **Not working, waiting to resolve the library implementation**
-   - **TO DO** file update README.MD
+
+
 
 **v2.5.0.M4.pre1** - 08/06/2019
 
