@@ -407,6 +407,7 @@ public class OpenWebNetBridgeHandler extends ConfigStatusBridgeHandler implement
             }
         }
         getThingAssociated(msg);
+        callAllThingCommandHandlerMessage(msg);
     }
 
     /** Get the Thing associated with this message... */
@@ -453,6 +454,17 @@ public class OpenWebNetBridgeHandler extends ConfigStatusBridgeHandler implement
                         deviceHandler.handleMessage(baseMsg);
                     }
                 }
+            }
+        }
+    }
+
+    private void callAllThingCommandHandlerMessage(OpenMessage msg) {
+        BaseOpenMessage baseMsg = (BaseOpenMessage) msg;
+        for (String ownIdkey : registeredDevices.keySet()) {
+            OpenWebNetThingHandler deviceHandler = registeredDevices.get(ownIdkey);
+            // Bus Command
+            if (deviceHandler != null && deviceHandler.ownIdPrefix().indexOf("C") == 0) {
+                deviceHandler.handleMessage(baseMsg);
             }
         }
     }
