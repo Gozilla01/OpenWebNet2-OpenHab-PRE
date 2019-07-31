@@ -51,8 +51,12 @@ Devices support some of the following channels:
     - Added management for `bus_motion_detector`
   - [Issue [#79](https://github.com/mvalla/openhab2-addons/issues/79)] Add what parameter to lighting for `bus_on_off_switch` and `zb_on_off_switch`
     - Added parameters `what` (default `what`= 0), `hour`, `minute` and `second`
-
-
+  - Add bus `bus_motion_detector` for motion decector (movement and lux value detected)
+    - Tested with type `BMSE-3003`, `BMSE-1001` and `048834` 
+    - Request lux value
+    - Parameter `where` and `automaticToOff`
+    - Channel `switch` state `ON` to the movement and after 2 seconds automatically `OFF`
+    - Channel `value` numeric with detected value lux
 
 
 
@@ -62,34 +66,16 @@ Devices support some of the following channels:
 
 - Translation Italian
 
-**v2.5.0.M3.pre10**  24/07/2019
-
-- Update for bus `bus_motion_detector`
 
 
-  - Added management for `bus_motion_detector`
+
 
  
 
-**v2.5.0.M3.pre9** 19/07/2019
 
-- Update for bus `bus_motion_detector`
-  - Update request
-  - Added OFF state management (WHAT = 39)
-  - Added management of commands from OH to bus (ON WHAT=34 and OFF WHAT=39)
-  - Addes parameter `automaticToOff`
-  - Other minor corrections
-  - **TO DO** Delete the `MOVEMENT_DETECTED` and `END_MOVEMENT_DETECTED` management from `OpenWebNetLightingHandler` ?
 
-**v2.5.0.M3.pre8** 07/07/2019
 
-- Add new bus `bus_motion_detector` for motion decector (movement and lux value detected)
-  - Tested with type `BMSE-3003` , `BMSE-1001` and `048834` 
-  - Discovered only with `discoveryByActivation = true`
-  - Request lux value with the initialization of things
-  - Parameter `where`
-  - Channel `switch` state `ON` to the movement and after 2 seconds automatically `OFF`
-  - Channel `value` numeric with detected value lux
+
 
 
 
