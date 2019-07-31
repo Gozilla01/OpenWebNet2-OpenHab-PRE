@@ -25,7 +25,7 @@ Devices support some of the following channels:
 
 ### Changelog
 
-**v2.5.0.M3.pre12** IN PROGRESS dd/07/2019
+**v2.5.0.M3.pre12** IN PROGRESS 31/07/2019
 
 - Bug fix
   - [FIX [#80](https://github.com/mvalla/openhab2-addons/issues/80)] thermo: setmode in MANUAL not work
@@ -34,8 +34,6 @@ Devices support some of the following channels:
   - Temporary modification to the `message.Lighting`, correction for group command management for different `Lighting.Type`
   - Temporary modification to the `message.Automation`, correction for group command management for different `Automation.Type`
 
-
-  
 - New features
   - [FIX [#12](https://github.com/mvalla/openhab2-addons/issues/12) and [#32](https://github.com/mvalla/openhab2-addons/issues/32)] Add bus AUX for managing auxiliary controls (WHO = 9)
   - [FIX [#63](https://github.com/mvalla/openhab2-addons/issues/63)] Rollershutter items do not track changes in movement from external commands
