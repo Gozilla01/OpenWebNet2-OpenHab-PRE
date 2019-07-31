@@ -225,5 +225,20 @@
         <category></category>
         <state readOnly="true" pattern="%.1f lx"></state>
     </channel-type>
+    
+    <!-- Command Channel -->
+    <channel-type id="what">
+        <item-type>String</item-type>
+        <label>What</label>
+        <description>String What</description>
+        <category></category>
+    </channel-type>
+    <channel-type id="contact">
+        <item-type>Contact</item-type>
+        <label>Contact</label>
+        <description>Switch the power OPEN and Closed</description>
+        <category></category>
+        <state pattern="%s" readOnly="true"></state>
+    </channel-type>
 	
 </thing:thing-descriptions>
