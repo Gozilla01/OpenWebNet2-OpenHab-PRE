@@ -179,6 +179,10 @@ public class OpenWebNetBindingConstants {
     public static final String CONFIG_PROPERTY_SHUTTER_RUN = "shutterRun";
     public static final String CONFIG_PROPERTY_SCENARIO_BUTTONS = "buttons";
     public static final String CONFIG_PROPERTY_ADDRTYPE = "addrtype";
+    public static final String CONFIG_PROPERTY_WHAT = "what";
+    public static final String CONFIG_PROPERTY_HOUR = "hour";
+    public static final String CONFIG_PROPERTY_MINUTE = "minute";
+    public static final String CONFIG_PROPERTY_SECOND = "second";
     // BUS gw config properties
     public static final String CONFIG_PROPERTY_SERIAL_PORT = "serialPort";
     public static final String CONFIG_PROPERTY_HOST = "host";

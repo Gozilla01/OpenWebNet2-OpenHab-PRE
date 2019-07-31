@@ -43,6 +43,52 @@
                 <default>1</default>
                 <required>true</required>
             </parameter>
+            <parameter name="what" type="integer">
+                <label>OpenWebNet Address what</label>
+                <description>Example: 0=Normal On/Off, 11=ON timed 1 Min</description>
+                <options>
+                    <option value="0">0 Turn on/off</option>
+                    <option value="11">11 ON timed 1 Min</option>
+                    <option value="12">12 ON timed 2 Min</option>
+                    <option value="13">13 ON timed 3 Min</option>
+                    <option value="14">14 ON timed 4 Min</option>
+                    <option value="15">15 ON timed 5 Min</option>
+                    <option value="16">16 ON timed 15 Min</option>
+                    <option value="17">17 ON timed 30 Sec</option>
+                    <option value="18">18 ON timed 0.5 Sec</option>
+                    <option value="20">20 Blinking on 0.5 Sec</option> 
+                    <option value="21">21 Blinking on 1 Sec</option> 
+                    <option value="22">22 Blinking on 1.5 Sec</option> 
+                    <option value="23">23 Blinking on 2 Sec</option> 
+                    <option value="24">24 Blinking on 2.5 Sec</option> 
+                    <option value="25">25 Blinking on 3 Sec</option> 
+                    <option value="26">26 Blinking on 3.5 Sec</option> 
+                    <option value="27">27 Blinking on 4 Sec</option> 
+                    <option value="28">28 Blinking on 4.5 Sec</option> 
+                    <option value="29">29 Blinking on 5 Sec</option>  
+                    <option value="99">99 Custom</option>                
+                </options>
+                <default>0</default>
+                <required>true</required>
+            </parameter>
+            <parameter name="hour" type="integer" min="0" max="23">
+                <label>OpenWebNet timer in hour (enable what = custom)</label>
+                <description>Example: 0=0 hour, 1=1 hour</description>               
+                <default>0</default>
+                <required>false</required>
+            </parameter>
+            <parameter name="minute" type="integer" min="0" max="59">
+                <label>OpenWebNet timer in minute (enable what = custom)</label>
+                <description>Example: 0=0 minute, 1=1 minute</description>               
+                <default>0</default>
+                <required>false</required>
+            </parameter>
+            <parameter name="second" type="integer" min="0" max="59">
+                <label>OpenWebNet timer in second (enable what = custom)</label>
+                <description>Example: 0=0 second, 1=1 second</description>               
+                <default>10</default>
+                <required>false</required>
+            </parameter>
 		</config-description>
 		
 	</thing-type>
