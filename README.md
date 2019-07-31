@@ -57,56 +57,8 @@ Devices support some of the following channels:
     - Parameter `where` and `automaticToOff`
     - Channel `switch` state `ON` to the movement and after 2 seconds automatically `OFF`
     - Channel `value` numeric with detected value lux
-
-
-
-
-**v2.5.0.M3.pre11** IN PROGRESS dd/07/2019
-
-
-- Translation Italian
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-**v2.5.0.M3.pre6** - 23/06/2019
-
-- Fix bug `ownId` for bus Command
-
-**v2.5.0.M3.pre5** - 23/06/2019
-
-- Update channel `what` for bus Command
-
-  
-**v2.5.0.M3.pre4** - 22/06/2019
-
-- [FIX [#52](https://github.com/mvalla/openhab2-addons/issues/52) and [#22](https://github.com/mvalla/openhab2-addons/issues/22)] Add bus Command
-  - **Not fully functional, waiting to resolve the library implementation**
-  - **TO DO** file update README.MD
-
-
-
-
-
-
-
-**v2.5.0.M4.pre1** - 08/06/2019
-
-- From [v2.5.0.M3](https://github.com/mvalla/openhab2-addons/blob/openwebnet/bundles/org.openhab.binding.openwebnet/README_beta.md#changelog)
-
-
-
-
+  - [FIX [#52](https://github.com/mvalla/openhab2-addons/issues/52) and [#22](https://github.com/mvalla/openhab2-addons/issues/22)] Add bus Command
+  - Translation Italian
 
 ### Example Group Command
 
