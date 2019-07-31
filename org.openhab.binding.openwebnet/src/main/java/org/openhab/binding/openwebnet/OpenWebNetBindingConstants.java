@@ -74,6 +74,9 @@ public class OpenWebNetBindingConstants {
     public static final String THING_LABEL_BUS_DRY_CONTACT_IR = "Dry Contact/IR";
     public static final ThingTypeUID THING_TYPE_BUS_AUX_TOGGLE = new ThingTypeUID(BINDING_ID, "bus_on_off_aux");
     public static final String THING_LABEL_BUS_AUX_TOGGLE = "Auxiliary";
+    public static final ThingTypeUID THING_TYPE_BUS_MOTION_DETECTOR = new ThingTypeUID(BINDING_ID,
+            "bus_motion_detector");
+    public static final String THING_LABEL_BUS_DETECTOR = "Motion Detector";
 
     // ZIGBEE
     public static final ThingTypeUID THING_TYPE_ZB_ON_OFF_SWITCH = new ThingTypeUID(BINDING_ID, "zb_on_off_switch");
@@ -117,11 +120,15 @@ public class OpenWebNetBindingConstants {
     // ## AUX
     public static final Set<ThingTypeUID> AUX_SUPPORTED_THING_TYPES = new HashSet<>(
             Arrays.asList(THING_TYPE_BUS_AUX_TOGGLE, THING_TYPE_ZB_AUX_SWITCH));
+    // ## Motion Detector
+    public static final Set<ThingTypeUID> MOTION_DETECTOR_SUPPORTED_THING_TYPES = new HashSet<>(
+            Arrays.asList(THING_TYPE_BUS_MOTION_DETECTOR));
     // ## Groups
     public static final Set<ThingTypeUID> DEVICE_SUPPORTED_THING_TYPES = Stream
             .of(LIGHTING_SUPPORTED_THING_TYPES, AUTOMATION_SUPPORTED_THING_TYPES,
                     THERMOREGULATION_SUPPORTED_THING_TYPES, ENERGY_SUPPORTED_THING_TYPES,
-                    SCENARIO_SUPPORTED_THING_TYPES, GENERIC_SUPPORTED_THING_TYPES, AUX_SUPPORTED_THING_TYPES)
+                    SCENARIO_SUPPORTED_THING_TYPES, GENERIC_SUPPORTED_THING_TYPES, AUX_SUPPORTED_THING_TYPES,
+                    MOTION_DETECTOR_SUPPORTED_THING_TYPES)
             .flatMap(Collection::stream).collect(Collectors.toCollection(HashSet::new));
 
     // Sets.union(LIGHTING_SUPPORTED_THING_TYPES,
@@ -173,6 +180,9 @@ public class OpenWebNetBindingConstants {
 
     // auxiliary
     public static final String CHANNEL_AUX = "switch";
+    // motion detector
+    public static final String CHANNEL_MOTION_DETECTOR_SWITCH = "switch";
+    public static final String CHANNEL_MOTION_DETECTOR_VALUE = "value";
 
     // devices config properties
     public static final String CONFIG_PROPERTY_WHERE = "where";
@@ -183,6 +193,7 @@ public class OpenWebNetBindingConstants {
     public static final String CONFIG_PROPERTY_HOUR = "hour";
     public static final String CONFIG_PROPERTY_MINUTE = "minute";
     public static final String CONFIG_PROPERTY_SECOND = "second";
+    public static final String CONFIG_PROPERTY_AUTOMATICTOOFF = "automaticToOff";
     // BUS gw config properties
     public static final String CONFIG_PROPERTY_SERIAL_PORT = "serialPort";
     public static final String CONFIG_PROPERTY_HOST = "host";

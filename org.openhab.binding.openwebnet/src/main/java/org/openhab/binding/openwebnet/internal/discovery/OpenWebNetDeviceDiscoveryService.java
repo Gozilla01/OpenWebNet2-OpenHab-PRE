@@ -27,6 +27,7 @@ import org.openwebnet.OpenDeviceType;
 import org.openwebnet.OpenNewDeviceListener;
 import org.openwebnet.message.BaseOpenMessage;
 import org.openwebnet.message.CEN;
+import org.openwebnet.message.Lighting.WHAT;
 import org.openwebnet.message.OpenMessageFactory;
 import org.openwebnet.message.Who;
 import org.slf4j.Logger;
@@ -118,10 +119,18 @@ public class OpenWebNetDeviceDiscoveryService extends AbstractDiscoveryService i
                     break;
                 }
                 case SCS_ON_OFF_SWITCH: {
-                    thingTypeUID = OpenWebNetBindingConstants.THING_TYPE_BUS_ON_OFF_SWITCH;
-                    thingLabel = OpenWebNetBindingConstants.THING_LABEL_BUS_ON_OFF_SWITCH;
-                    deviceWho = Who.LIGHTING;
-                    break;
+                    if (baseMsg.getWhat().equals(WHAT.MOVEMENT_DETECTED)
+                            || baseMsg.getWhat().equals(WHAT.END_MOVEMENT_DETECTED)) {
+                        thingTypeUID = OpenWebNetBindingConstants.THING_TYPE_BUS_MOTION_DETECTOR;
+                        thingLabel = OpenWebNetBindingConstants.THING_LABEL_BUS_DETECTOR;
+                        deviceWho = Who.LIGHTING;
+                        break;
+                    } else {
+                        thingTypeUID = OpenWebNetBindingConstants.THING_TYPE_BUS_ON_OFF_SWITCH;
+                        thingLabel = OpenWebNetBindingConstants.THING_LABEL_BUS_ON_OFF_SWITCH;
+                        deviceWho = Who.LIGHTING;
+                        break;
+                    }
                 }
                 case SCS_DIMMER_SWITCH: {
                     thingTypeUID = OpenWebNetBindingConstants.THING_TYPE_BUS_DIMMER;

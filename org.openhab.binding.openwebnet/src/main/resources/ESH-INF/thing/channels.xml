@@ -211,4 +211,19 @@
 		
 	</channel-type>
 	
+	<!-- Motion Detector Channel -->  
+    <channel-type id="motionDetector">
+        <item-type>Switch</item-type>
+        <label>Motion Detector</label>
+        <description>Indicates Motion Detector has detected movement</description>
+        <category></category>       
+    </channel-type>
+    <channel-type id="value_motionDetector">
+        <item-type>Number</item-type>
+        <label>Value</label>
+        <description>Value lux</description>
+        <category></category>
+        <state readOnly="true" pattern="%.1f lx"></state>
+    </channel-type>
+	
 </thing:thing-descriptions>
